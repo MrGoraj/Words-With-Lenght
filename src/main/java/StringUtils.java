@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StringUtils {
 
@@ -11,10 +13,8 @@ public class StringUtils {
      * @return Words no longer than specified in the parameters
      */
     public List<String> getWordsWithLength(String text, int wordLength) {
-        String[] words = text.split(" ");
-        List <String> wordList = new ArrayList<>();
-        Collections.addAll(wordList, words);
-        wordList.removeIf(s -> s.length() != wordLength);
-        return wordList;
+        List<String> words = List.of(text.split(" "));
+        Stream<String> valid = words.stream().filter(s -> s.length() == wordLength);
+        return valid.collect(Collectors.toList());
     }
 }
